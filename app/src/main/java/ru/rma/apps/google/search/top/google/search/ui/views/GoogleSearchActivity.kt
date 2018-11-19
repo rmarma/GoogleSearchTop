@@ -30,7 +30,7 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
             it.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
             it.adapter = adapter
         }
-        presenter.setup(inputTextSearch.textChanges(), buttonSearch.clicks())
+        presenter.setup(inputTextSearch.textChanges().share(), buttonSearch.clicks().share())
         presenter.created()
     }
 

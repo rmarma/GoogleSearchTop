@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import io.reactivex.Single
-import ru.rma.apps.google.search.top.core.data.room.entities.COLUMN_TITLE
 import ru.rma.apps.google.search.top.core.data.room.entities.SearchResultRoom
 import ru.rma.apps.google.search.top.core.data.room.entities.TABLE_SEARCH_RESULTS
 
@@ -15,8 +14,8 @@ interface SearchResultRoomDao {
     @Query("SELECT * FROM $TABLE_SEARCH_RESULTS")
     fun results(): Single<List<SearchResultRoom>>
 
-    @Query("SELECT * FROM $TABLE_SEARCH_RESULTS")
-    fun results(query: String, limit: Int): Single<List<SearchResultRoom>>
+//    @Query("SELECT * FROM $TABLE_SEARCH_RESULTS")
+//    fun results(query: String, limit: Int): Single<List<SearchResultRoom>>
 
     @Insert
     fun insertAll(vararg responses: SearchResultRoom)

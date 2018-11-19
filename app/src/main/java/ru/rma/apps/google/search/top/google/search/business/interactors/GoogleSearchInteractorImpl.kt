@@ -30,23 +30,9 @@ class GoogleSearchInteractorImpl @Inject constructor(
             .subscribeOn(uiScheduler)
             .observeOn(ioScheduler)
             .switchMap { query ->
-                remote.results(query.toString(), 10)
-                        // TODO put to local
-                    .map { list -> list.map { SearchResultModel(it.link, it.title, it.snippet) } }
-                    .toFlowable()
+                remote.results(query.toString(), 10).toFlowable()
             }
-//            .map { listOf(
-//                SearchResultModel("1", "1"),
-//                SearchResultModel("2", "2"),
-//                SearchResultModel("3", "3"),
-//                SearchResultModel("4", "4"),
-//                SearchResultModel("5", "5"),
-//                SearchResultModel("6", "6"),
-//                SearchResultModel("7", "7"),
-//                SearchResultModel("8", "8"),
-//                SearchResultModel("9", "9"),
-//                SearchResultModel("10", "10")
-//            ) }
+            .map { list -> list.map { SearchResultModel(it.link, it.title, it.snippet) } }
             .subscribeOn(ioScheduler)
             .observeOn(uiScheduler)
     }
