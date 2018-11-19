@@ -6,4 +6,6 @@ import ru.rma.apps.google.search.top.core.data.entities.SearchResultEntity
 interface GoogleSearchRepository {
 
     fun results(query: String, limit: Int): Single<List<SearchResultEntity>>
+
+    fun saveResults(list: List<SearchResultEntity>): Single<List<SearchResultEntity>>
 }

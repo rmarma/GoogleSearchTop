@@ -6,5 +6,7 @@ import ru.rma.apps.google.search.top.google.search.ui.views.GoogleSearchView
 
 interface GoogleSearchPresenter : BasePresenter<GoogleSearchView> {
 
-    fun setup(queries: Observable<CharSequence>, clicks: Observable<Unit>)
+    fun setup(queries: Observable<CharSequence>,
+              clicks: Observable<Unit>,
+              refreshes: Observable<Unit>)
 }

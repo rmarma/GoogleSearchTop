@@ -7,4 +7,12 @@ class GoogleSearchEmpty : GoogleSearchView {
     override fun searchResults(results: List<SearchResultModel>) {
         // ничего не делаем
     }
+
+    override fun showProgress() {
+        // ничего не делаем
+    }
+
+    override fun hideProgress() {
+        // ничего не делаем
+    }
 }

@@ -8,6 +8,7 @@ interface GoogleSearchInteractor {
 
     fun searchResults(
         queries: Observable<CharSequence>,
-        clicks: Observable<Unit>
+        clicks: Observable<Unit>,
+        refreshes: Observable<Unit>
     ): Flowable<List<SearchResultModel>>
 }

@@ -14,4 +14,8 @@ class GoogleSearchRepositoryRemote @Inject constructor(
     override fun results(query: String, limit: Int): Single<List<SearchResultEntity>> {
         return api.search(query, limit).map { mapper.itemsToResults(it.items) }
     }
+
+    override fun saveResults(list: List<SearchResultEntity>): Single<List<SearchResultEntity>> {
+        throw NotImplementedError("Don't use! Only Local Repository.")
+    }
 }

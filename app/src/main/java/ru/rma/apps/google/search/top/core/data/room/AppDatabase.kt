@@ -7,7 +7,7 @@ import ru.rma.apps.google.search.top.core.data.room.entities.SearchResultRoom
 
 const val DATABASE_APP = "database_app"
 
-@Database(entities = [SearchResultRoom::class], version = 1)
+@Database(entities = [SearchResultRoom::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun searchResultRoomDao(): SearchResultRoomDao

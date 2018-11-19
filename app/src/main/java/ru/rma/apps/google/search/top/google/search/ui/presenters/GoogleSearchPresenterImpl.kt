@@ -9,23 +9,30 @@ import ru.rma.apps.google.search.top.google.search.ui.views.GoogleSearchView
 import javax.inject.Inject
 
 class GoogleSearchPresenterImpl @Inject constructor(
-    @Empty
-    private val emptyView: GoogleSearchView,
-    private val interactor: GoogleSearchInteractor,
-    private val cache: GoogleSearchCache
+        @Empty
+        private val emptyView: GoogleSearchView,
+        private val interactor: GoogleSearchInteractor,
+        private val cache: GoogleSearchCache
 ) : GoogleSearchPresenter {
 
     private var view: GoogleSearchView = emptyView
     private val compositeDisposable = CompositeDisposable()
 
 
-    override fun setup(queries: Observable<CharSequence>, clicks: Observable<Unit>) {
-        compositeDisposable.add(interactor.searchResults(queries, clicks).subscribe({
-            cache.results = it
-            updateViewFromCache()
-        }, {
-            it.printStackTrace()
-        }))
+    override fun setup(queries: Observable<CharSequence>,
+                       clicks: Observable<Unit>,
+                       refreshes: Observable<Unit>) {
+        compositeDisposable.add(interactor.searchResults(queries, clicks.doOnNext {
+            view.showProgress()
+        }, refreshes)
+                .subscribe({
+                    cache.results = it
+                    view.hideProgress()
+                    updateViewFromCache()
+                }, {
+                    it.printStackTrace()
+                    view.hideProgress()
+                }))
     }
 
     override fun created() {

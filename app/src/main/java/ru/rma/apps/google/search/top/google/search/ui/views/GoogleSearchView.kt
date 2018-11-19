@@ -6,4 +6,6 @@ import ru.rma.apps.google.search.top.google.search.ui.models.SearchResultModel
 interface GoogleSearchView : BaseView {
 
     fun searchResults(results: List<SearchResultModel>)
+    fun showProgress()
+    fun hideProgress()
 }

@@ -3,6 +3,7 @@ package ru.rma.apps.google.search.top.google.search.ui.views
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
 import com.jakewharton.rxbinding3.view.clicks
 import com.jakewharton.rxbinding3.widget.textChanges
 import kotlinx.android.synthetic.main.activity_google_search.*
@@ -30,7 +31,9 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
             it.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
             it.adapter = adapter
         }
-        presenter.setup(inputTextSearch.textChanges().share(), buttonSearch.clicks().share())
+        presenter.setup(inputTextSearch.textChanges().share(),
+                buttonSearch.clicks().share(),
+                refreshSearch.refreshes().share())
         presenter.created()
     }
 
@@ -55,5 +58,13 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
 
     override fun searchResults(results: List<SearchResultModel>) {
         adapter.itmes(results)
+    }
+
+    override fun showProgress() {
+        refreshSearch?.isRefreshing = true
+    }
+
+    override fun hideProgress() {
+        refreshSearch?.isRefreshing = false
     }
 }
