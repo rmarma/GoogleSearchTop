@@ -24,9 +24,11 @@ import ru.rma.apps.google.search.top.core.di.annotations.Remote
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
-@Module(includes = [AndroidSupportInjectionModule::class,
-    SchedulersModule::class,
-    ActivitiesModule::class])
+@Module(
+    includes = [AndroidSupportInjectionModule::class,
+        SchedulersModule::class,
+        ActivitiesModule::class]
+)
 class AppModule {
 
     @Provides
@@ -49,21 +51,23 @@ class AppModule {
     @Provides
     @Singleton
     fun provideApi(client: OkHttpClient): GoogleSearchApi = Retrofit.Builder()
-            .baseUrl(URL_GOOGLEAPIS)
-            .client(client)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
-            .build()
-            .create(GoogleSearchApi::class.java)
+        .baseUrl(URL_GOOGLEAPIS)
+        .client(client)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+        .build()
+        .create(GoogleSearchApi::class.java)
 
     @Provides
     @Singleton
-    fun provideAppDatabase(context: Context) = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_APP).build()
+    fun provideAppDatabase(context: Context) = Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_APP)
+        .build()
 
     @Remote
     @Provides
     @Singleton
-    fun provideGoogleSearchRepositoryRemote(repository: GoogleSearchRepositoryRemote): GoogleSearchRepository = repository
+    fun provideGoogleSearchRepositoryRemote(repository: GoogleSearchRepositoryRemote): GoogleSearchRepository =
+        repository
 
     @Local
     @Provides
