@@ -3,7 +3,7 @@ package ru.rma.apps.google.search.top.google.search.ui.presenters
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import ru.rma.apps.google.search.top.core.di.annotations.Empty
-import ru.rma.apps.google.search.top.google.search.business.cache.GoogleSearchCache
+import ru.rma.apps.google.search.top.google.search.ui.cache.GoogleSearchCache
 import ru.rma.apps.google.search.top.google.search.business.interactors.GoogleSearchInteractor
 import ru.rma.apps.google.search.top.google.search.ui.views.GoogleSearchView
 import javax.inject.Inject

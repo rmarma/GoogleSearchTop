@@ -1,6 +1,5 @@
-package ru.rma.apps.google.search.top.google.search.business.cache
+package ru.rma.apps.google.search.top.google.search.ui.cache
 
-import android.util.Log
 import ru.rma.apps.google.search.top.core.di.scopes.ActivityScope
 import ru.rma.apps.google.search.top.google.search.ui.models.SearchResultModel
 import javax.inject.Inject
