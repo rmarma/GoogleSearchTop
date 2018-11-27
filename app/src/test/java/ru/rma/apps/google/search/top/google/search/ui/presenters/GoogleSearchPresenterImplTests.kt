@@ -1,7 +1,8 @@
 package ru.rma.apps.google.search.top.google.search.ui.presenters
 
 import org.junit.Test
-import org.mockito.Mockito.*
+import org.mockito.Mockito.mock
+import org.mockito.Mockito.verify
 import ru.rma.apps.google.search.top.google.search.business.interactors.GoogleSearchInteractor
 import ru.rma.apps.google.search.top.google.search.ui.cache.GoogleSearchCache
 import ru.rma.apps.google.search.top.google.search.ui.views.GoogleSearchView
@@ -14,18 +15,13 @@ class GoogleSearchPresenterImplTests {
     private val cache = mock(GoogleSearchCache::class.java)
 
     private val presenter = GoogleSearchPresenterImpl(
-        viewEmpty,
-        interactor,
-        cache
+        emptyView = viewEmpty,
+        interactor = interactor,
+        cache = cache
     )
 
-//    @Test
-//    fun presenterSetup() {
-//        // TODO
-//    }
-
     @Test
-    fun presenterDestroy() {
+    fun presenter_destroy() {
         presenter.destroy()
         verify(cache).clear()
     }

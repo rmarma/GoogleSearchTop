@@ -25,7 +25,7 @@ class GoogleSearchInteractorImplTests {
     )
 
     @Test
-    fun remoteSuccess() {
+    fun interactor_remoteSuccess() {
         val listRemote = listOf(
             SearchResultEntity("remote1", "query1"),
             SearchResultEntity("remote2", "query2"),
@@ -58,7 +58,7 @@ class GoogleSearchInteractorImplTests {
     }
 
     @Test
-    fun localSuccess() {
+    fun interactor_localSuccess() {
         val listRemote = emptyList<SearchResultEntity>()
         val listLocal = listOf(
             SearchResultEntity("local1", "query1"),
