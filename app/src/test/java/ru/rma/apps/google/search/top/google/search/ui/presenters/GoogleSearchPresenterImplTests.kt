@@ -25,7 +25,7 @@ class GoogleSearchPresenterImplTests {
         val list = emptyList<SearchResultModel>()
         `when`(cache.results).thenReturn(list)
         presenter.attachView(view)
-        verify(view).searchResults(emptyList())
+        verify(view).searchResults(list)
         verify(view).hideProgress()
         verify(view).hideResults()
         verify(view).showEmpty()
