@@ -2,4 +2,6 @@
 <resources>
 
     <dimen name="all_item_padding">16dp</dimen>
+
+    <dimen name="google_search_empty_results_icon_size">72dp</dimen>
 </resources>

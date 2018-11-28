@@ -1,6 +1,7 @@
 package ru.rma.apps.google.search.top.google.search.ui.views
 
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
@@ -34,7 +35,6 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
         presenter.setup(inputTextSearch.textChanges().share(),
                 buttonSearch.clicks().share(),
                 refreshSearch.refreshes().share())
-        presenter.created()
     }
 
     override fun onStart() {
@@ -60,11 +60,27 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
         adapter.itmes(results)
     }
 
+    override fun showResults() {
+        refreshSearch?.visibility = View.VISIBLE
+    }
+
+    override fun hideResults() {
+        refreshSearch?.visibility = View.GONE
+    }
+
     override fun showProgress() {
         refreshSearch?.isRefreshing = true
     }
 
     override fun hideProgress() {
         refreshSearch?.isRefreshing = false
+    }
+
+    override fun showEmpty() {
+        emptySearch?.visibility = View.VISIBLE
+    }
+
+    override fun hideEmpty() {
+        emptySearch?.visibility = View.GONE
     }
 }

@@ -3,4 +3,6 @@
 
     <string name="all_hint_search">Search</string>
     <string name="all_desc_search">Search</string>
+
+    <string name="google_search_empty_results">Nothing found</string>
 </resources>

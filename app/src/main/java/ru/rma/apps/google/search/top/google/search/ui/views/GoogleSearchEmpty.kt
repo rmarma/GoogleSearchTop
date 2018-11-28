@@ -8,11 +8,27 @@ class GoogleSearchEmpty : GoogleSearchView {
         // ничего не делаем
     }
 
+    override fun showResults() {
+        // ничего не делаем
+    }
+
+    override fun hideResults() {
+        // ничего не делаем
+    }
+
     override fun showProgress() {
         // ничего не делаем
     }
 
     override fun hideProgress() {
+        // ничего не делаем
+    }
+
+    override fun showEmpty() {
+        // ничего не делаем
+    }
+
+    override fun hideEmpty() {
         // ничего не делаем
     }
 }

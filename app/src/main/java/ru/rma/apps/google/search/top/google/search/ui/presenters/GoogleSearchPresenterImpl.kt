@@ -27,16 +27,11 @@ class GoogleSearchPresenterImpl @Inject constructor(
         }, refreshes)
                 .subscribe({
                     cache.results = it
-                    view.hideProgress()
                     updateViewFromCache()
                 }, {
                     it.printStackTrace()
                     view.hideProgress()
                 }))
-    }
-
-    override fun created() {
-
     }
 
     override fun attachView(view: GoogleSearchView) {
@@ -54,5 +49,16 @@ class GoogleSearchPresenterImpl @Inject constructor(
     }
 
 
-    private fun updateViewFromCache() = view.searchResults(cache.results)
+    private fun updateViewFromCache() {
+        val list = cache.results
+        view.searchResults(list)
+        view.hideProgress()
+        if (list.isEmpty()) {
+            view.hideResults()
+            view.showEmpty()
+        } else {
+            view.showResults()
+            view.hideEmpty()
+        }
+    }
 }

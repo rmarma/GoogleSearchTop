@@ -1,6 +1,9 @@
 package ru.rma.apps.google.search.top.google.search.ui.views
 
+import android.view.View
 import android.widget.ImageButton
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.textfield.TextInputEditText
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -17,5 +20,8 @@ class GoogleSearchActivityTests {
     fun activity_requireViews() {
         activity.requireViewById<TextInputEditText>(R.id.inputTextSearch)
         activity.requireViewById<ImageButton>(R.id.buttonSearch)
+        activity.requireViewById<SwipeRefreshLayout>(R.id.refreshSearch)
+        activity.requireViewById<RecyclerView>(R.id.recyclerViewSearch)
+        activity.requireViewById<View>(R.id.emptySearch)
     }
 }
