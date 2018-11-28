@@ -4,18 +4,19 @@ import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import ru.rma.apps.google.search.top.core.di.annotations.Empty
 import ru.rma.apps.google.search.top.google.search.business.interactors.GoogleSearchInteractor
-import ru.rma.apps.google.search.top.google.search.ui.cache.GoogleSearchCache
+import ru.rma.apps.google.search.top.google.search.ui.cache.GoogleSearchViewModel
 import ru.rma.apps.google.search.top.google.search.ui.views.GoogleSearchView
 import javax.inject.Inject
 
 class GoogleSearchPresenterImpl @Inject constructor(
     @Empty
     private val emptyView: GoogleSearchView,
-    private val interactor: GoogleSearchInteractor,
-    private val cache: GoogleSearchCache
+    private val interactor: GoogleSearchInteractor
 ) : GoogleSearchPresenter {
 
     private var view: GoogleSearchView = emptyView
+    private lateinit var cache: GoogleSearchViewModel
+
     private val compositeDisposable = CompositeDisposable()
 
 
@@ -40,7 +41,10 @@ class GoogleSearchPresenterImpl @Inject constructor(
 
     override fun destroy() {
         compositeDisposable.clear()
-        cache.clear()
+    }
+
+    override fun cache(cache: GoogleSearchViewModel) {
+        this.cache = cache
     }
 
     override fun setup(
