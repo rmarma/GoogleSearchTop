@@ -19,19 +19,14 @@ class GoogleSearchPresenterImpl @Inject constructor(
     private val compositeDisposable = CompositeDisposable()
 
 
-    override fun setup(queries: Observable<CharSequence>,
-                       clicks: Observable<Unit>,
-                       refreshes: Observable<Unit>) {
-        compositeDisposable.add(interactor.searchResults(queries, clicks.doOnNext {
-            view.showProgress()
-        }, refreshes)
-                .subscribe({
-                    cache.results = it
-                    updateViewFromCache()
-                }, {
-                    it.printStackTrace()
-                    view.hideProgress()
-                }))
+    override fun created(view: GoogleSearchView) {
+        this.view = view
+        // setup view
+        this.view.hideProgress()
+        this.view.showResults()
+        this.view.hideEmpty()
+        // setup presenter
+        this.view.setupPresenter()
     }
 
     override fun attachView(view: GoogleSearchView) {
@@ -46,6 +41,35 @@ class GoogleSearchPresenterImpl @Inject constructor(
     override fun destroy() {
         compositeDisposable.clear()
         cache.clear()
+    }
+
+    override fun setup(queries: Observable<CharSequence>,
+                       clicks: Observable<Unit>,
+                       refreshes: Observable<Unit>) {
+        // очищаем прошлые подписки
+        compositeDisposable.clear()
+        // подписываемся
+        compositeDisposable.add(
+                interactor.searchResults(
+                        queries,
+                        clicks.doOnNext {
+                            view.showProgress()
+                            view.showResults()
+                            view.hideEmpty()
+                        },
+                        refreshes.doOnNext {
+                            view.showResults()
+                            view.hideEmpty()
+                        }
+                )
+                        .subscribe({
+                            cache.results = it
+                            updateViewFromCache()
+                        }, {
+                            // TODO Handle Error
+                            view.setupPresenter()
+                        })
+        )
     }
 
 

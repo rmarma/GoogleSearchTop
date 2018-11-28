@@ -5,6 +5,7 @@ import ru.rma.apps.google.search.top.google.search.ui.models.SearchResultModel
 
 interface GoogleSearchView : BaseView {
 
+    fun setupPresenter()
     fun searchResults(results: List<SearchResultModel>)
     fun showResults()
     fun hideResults()

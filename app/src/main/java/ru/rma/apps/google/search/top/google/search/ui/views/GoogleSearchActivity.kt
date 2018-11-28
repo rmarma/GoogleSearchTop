@@ -32,9 +32,7 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
             it.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
             it.adapter = adapter
         }
-        presenter.setup(inputTextSearch.textChanges().share(),
-                buttonSearch.clicks().share(),
-                refreshSearch.refreshes().share())
+        presenter.created(this)
     }
 
     override fun onStart() {
@@ -55,6 +53,12 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
         presenter.destroy()
     }
 
+
+    override fun setupPresenter() {
+        presenter.setup(inputTextSearch.textChanges().share(),
+                buttonSearch.clicks().share(),
+                refreshSearch.refreshes().share())
+    }
 
     override fun searchResults(results: List<SearchResultModel>) {
         adapter.itmes(results)

@@ -4,6 +4,11 @@ import ru.rma.apps.google.search.top.google.search.ui.models.SearchResultModel
 
 class GoogleSearchEmpty : GoogleSearchView {
 
+
+    override fun setupPresenter() {
+        // ничего не делаем
+    }
+
     override fun searchResults(results: List<SearchResultModel>) {
         // ничего не делаем
     }
