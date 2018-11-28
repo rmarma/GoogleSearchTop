@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="@dimen/google_search_padding_horizontal"
+    android:paddingRight="@dimen/google_search_padding_horizontal"
     tools:context=".google.search.ui.views.GoogleSearchActivity">
 
     <com.google.android.material.textfield.TextInputLayout
@@ -19,7 +21,12 @@
             android:id="@+id/inputTextSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/all_hint_search" />
+            android:hint="@string/all_hint_search"
+            android:inputType="text"
+            android:selectAllOnFocus="true">
+
+            <requestFocus />
+        </com.google.android.material.textfield.TextInputEditText>
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageButton
