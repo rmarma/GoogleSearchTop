@@ -39,7 +39,7 @@ class GoogleSearchPresenterImplTests {
         )
         `when`(cache.results).thenReturn(list)
         presenter.attachView(view)
-        verify(view).searchResults(emptyList())
+        verify(view).searchResults(list)
         verify(view).hideProgress()
         verify(view).showResults()
         verify(view).hideEmpty()
