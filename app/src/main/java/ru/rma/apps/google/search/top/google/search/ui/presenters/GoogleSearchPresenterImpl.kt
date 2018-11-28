@@ -3,16 +3,16 @@ package ru.rma.apps.google.search.top.google.search.ui.presenters
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import ru.rma.apps.google.search.top.core.di.annotations.Empty
-import ru.rma.apps.google.search.top.google.search.ui.cache.GoogleSearchCache
 import ru.rma.apps.google.search.top.google.search.business.interactors.GoogleSearchInteractor
+import ru.rma.apps.google.search.top.google.search.ui.cache.GoogleSearchCache
 import ru.rma.apps.google.search.top.google.search.ui.views.GoogleSearchView
 import javax.inject.Inject
 
 class GoogleSearchPresenterImpl @Inject constructor(
-        @Empty
-        private val emptyView: GoogleSearchView,
-        private val interactor: GoogleSearchInteractor,
-        private val cache: GoogleSearchCache
+    @Empty
+    private val emptyView: GoogleSearchView,
+    private val interactor: GoogleSearchInteractor,
+    private val cache: GoogleSearchCache
 ) : GoogleSearchPresenter {
 
     private var view: GoogleSearchView = emptyView
@@ -43,32 +43,40 @@ class GoogleSearchPresenterImpl @Inject constructor(
         cache.clear()
     }
 
-    override fun setup(queries: Observable<CharSequence>,
-                       clicks: Observable<Unit>,
-                       refreshes: Observable<Unit>) {
+    override fun setup(
+        queries: Observable<CharSequence>,
+        clicks: Observable<Unit>,
+        refreshes: Observable<Unit>
+    ) {
         // очищаем прошлые подписки
         compositeDisposable.clear()
         // подписываемся
         compositeDisposable.add(
-                interactor.searchResults(
-                        queries,
-                        clicks.doOnNext {
-                            view.showProgress()
-                            view.showResults()
-                            view.hideEmpty()
-                        },
-                        refreshes.doOnNext {
-                            view.showResults()
-                            view.hideEmpty()
-                        }
-                )
-                        .subscribe({
-                            cache.results = it
-                            updateViewFromCache()
-                        }, {
-                            // TODO Handle Error
-                            view.setupPresenter()
-                        })
+            interactor.searchResults(
+                queries,
+                clicks.doOnNext {
+                    view.showProgress()
+                    view.showResults()
+                    view.hideEmpty()
+                },
+                refreshes.doOnNext {
+                    view.showResults()
+                    view.hideEmpty()
+                }
+            )
+                .doOnError {
+                    // TODO Handle Error
+                    view.hideProgress()
+                }.retryWhen { it }
+                .subscribe({
+                    cache.results = it
+                    updateViewFromCache()
+                }, {
+                    // TODO Handle Error
+                    it.printStackTrace()
+                    // полная переподписка на все события
+                    view.setupPresenter()
+                })
         )
     }
 
