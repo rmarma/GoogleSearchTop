@@ -2,6 +2,7 @@ package ru.rma.apps.google.search.top.google.search.ui.views
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.jakewharton.rxbinding3.swiperefreshlayout.refreshes
@@ -11,6 +12,7 @@ import kotlinx.android.synthetic.main.activity_google_search.*
 import ru.rma.apps.google.search.top.R
 import ru.rma.apps.google.search.top.core.ui.views.BaseActivity
 import ru.rma.apps.google.search.top.google.search.ui.adapters.SearchResultAdapter
+import ru.rma.apps.google.search.top.google.search.ui.cache.GoogleSearchViewModel
 import ru.rma.apps.google.search.top.google.search.ui.models.SearchResultModel
 import ru.rma.apps.google.search.top.google.search.ui.presenters.GoogleSearchPresenter
 import javax.inject.Inject
@@ -32,6 +34,7 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
             it.layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
             it.adapter = adapter
         }
+        presenter.cache(ViewModelProviders.of(this).get(GoogleSearchViewModel::class.java))
         presenter.created(this)
     }
 
@@ -55,9 +58,11 @@ class GoogleSearchActivity : BaseActivity(), GoogleSearchView {
 
 
     override fun setupPresenter() {
-        presenter.setup(inputTextSearch.textChanges().share(),
-                buttonSearch.clicks().share(),
-                refreshSearch.refreshes().share())
+        presenter.setup(
+            inputTextSearch.textChanges().share(),
+            buttonSearch.clicks().share(),
+            refreshSearch.refreshes().share()
+        )
     }
 
     override fun searchResults(results: List<SearchResultModel>) {
